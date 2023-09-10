@@ -3,7 +3,6 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const mailSender = require("../config/mailSender");
 const {courseEnrollmentEmail} = require("../mailTemplates/courseEnrollmentEmail");
-const { BsCloudFogFill } = require("react-icons/bs");
 const { paymentSuccessEmail } = require("../mailTemplates/paymentSuccessEmail");
 
 const mongoose = require("mongoose");

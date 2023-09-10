@@ -31,7 +31,7 @@ app.use(cookieParser());
 // *** v.v.IMP inorder to entertain the frontend requests
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "*",
         credentials: true,
     })
 )
