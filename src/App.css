@@ -1,0 +1,158 @@
+/* write your css here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body{
+    overflow-x: hidden;
+}
+
+.codeBlock-1{
+    height: 257.05px;
+    width: 372.95px;
+    opacity: 0.2;
+    background: linear-gradient(123.77deg, #8A2BE2 -6.46%, #FFA500 59.04%, #F8F8FF 124.53%);
+    top: -50px;
+    left: -50px;
+    opacity: 0.2;
+    filter: blur(34px);
+    border-radius: 100%;
+}
+
+.codeBlock-2{
+    height: 257.05px;
+    width: 372.95px;
+    opacity: 0.2;
+    background: linear-gradient(118.19deg, #1FA2FF -3.62%, #12D8FA 50.44%, #A6FFCB 104.51%);
+    top: -50px;
+    left: -50px;
+    opacity: 0.2;
+    filter: blur(34px);
+    border-radius: 100%;
+}
+
+.forBorder{
+    border: 1px solid;
+    border-color: beige;
+    border-radius: 8px;
+    /* border-image-source: linear-gradient(121.74deg, rgba(255, 255, 255, 0.22) -7.75%, rgba(255, 255, 255, 0) 37.38%); */
+}
+
+.background{
+    background: linear-gradient(111.93deg, rgba(14, 26, 45, 0.24) -1.4%, rgba(17, 30, 50, 0.38) 104.96%);
+}
+
+.homepage_bg {
+    background: url("../src/assets/Images/bghome.svg");
+}
+
+.spinner {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 9px solid rgb(255 214 10 / var(--tw-bg-opacity));
+    animation: spinner-bulqg1 0.8s infinite linear alternate,
+      spinner-oaa3wk 1.6s infinite linear;
+}
+
+@keyframes spinner-bulqg1 {
+    0% {
+      clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+    }
+  
+    12.5% {
+      clip-path: polygon(
+        50% 50%,
+        0 0,
+        50% 0%,
+        100% 0%,
+        100% 0%,
+        100% 0%,
+        100% 0%
+      );
+    }
+  
+    25% {
+      clip-path: polygon(
+        50% 50%,
+        0 0,
+        50% 0%,
+        100% 0%,
+        100% 100%,
+        100% 100%,
+        100% 100%
+      );
+    }
+  
+    50% {
+      clip-path: polygon(
+        50% 50%,
+        0 0,
+        50% 0%,
+        100% 0%,
+        100% 100%,
+        50% 100%,
+        0% 100%
+      );
+    }
+  
+    62.5% {
+      clip-path: polygon(
+        50% 50%,
+        100% 0,
+        100% 0%,
+        100% 0%,
+        100% 100%,
+        50% 100%,
+        0% 100%
+      );
+    }
+  
+    75% {
+      clip-path: polygon(
+        50% 50%,
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        100% 100%,
+        50% 100%,
+        0% 100%
+      );
+    }
+  
+    100% {
+      clip-path: polygon(
+        50% 50%,
+        50% 100%,
+        50% 100%,
+        50% 100%,
+        50% 100%,
+        50% 100%,
+        0% 100%
+      );
+    }
+  }
+  
+  @keyframes spinner-oaa3wk {
+    0% {
+      transform: scaleY(1) rotate(0deg);
+    }
+  
+    49.99% {
+      transform: scaleY(1) rotate(135deg);
+    }
+  
+    50% {
+      transform: scaleY(-1) rotate(0deg);
+    }
+  
+    100% {
+      transform: scaleY(-1) rotate(-135deg);
+    }
+}
+
+.label {
+  font-size: 0px;
+}
+
+
