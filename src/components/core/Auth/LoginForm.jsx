@@ -10,6 +10,7 @@ const LoginForm = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {accountType} = useSelector((state) => state.auth)
 
     const tabData = [
         {
@@ -34,7 +35,6 @@ const LoginForm = () => {
         dispatch(signIn(formData.emailId, formData.password, navigate))
     }
 
-    const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
     const [formData, setFormData] = useState({
         emailId: "",
         password: "",
@@ -53,7 +53,7 @@ const LoginForm = () => {
 
             <form className="mt-6 flex w-full flex-col gap-y-4" onSubmit={onSubmitHandler}>
                 {/* tab */}
-                <Tab tabData={tabData} field={accountType} setField={setAccountType}/>
+                <Tab tabData={tabData} field={accountType}/>
 
                 <div>
                     <label className='w-full'>
@@ -97,11 +97,11 @@ const LoginForm = () => {
                             )}
                             
                         </span>
-                        <Link to="/forgot-password">
-                            <p className="mt-2 ml-auto max-w-max text-xs text-blue-100">
+                        <div className="mt-2 ml-auto max-w-max text-xs text-blue-100 cursor-pointer" onClick={() => navigate("/forgot-password")}>
+                            <p>
                                 Forgot Password
                             </p>
-                        </Link>
+                        </div>
                     </label>
 
                 </div>

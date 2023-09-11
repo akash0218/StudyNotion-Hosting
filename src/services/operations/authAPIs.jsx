@@ -64,6 +64,7 @@ export function signIn(emailId, password, navigate) {
     const SIGNIN_API = authEndPoints.SIGNIN_API;
 
     return async(dispatch) => {
+        const toastId = toast.loading("Loading..!!")
         dispatch(setLoading(true));
 
         try{
@@ -87,10 +88,12 @@ export function signIn(emailId, password, navigate) {
         catch(error){
             const {message} = error.response.data;
             toast.error(message)
+            toast.dismiss(toastId);
             navigate("/login")
+            return
         }
-
         dispatch(setLoading(false));
+        toast.dismiss(toastId)
     }
 }
 
@@ -152,10 +155,12 @@ export function resetPassword(password, confirmPassword, token, navigate) {
 
 export function logout(navigate){
     return async(dispatch) => {
+        const toastId = toast.loading("Loading..!!")
         dispatch(setToken(null))
         dispatch(setUser(null))
         localStorage.removeItem("token")
         localStorage.removeItem("user")
+        toast.dismiss(toastId);
         toast.success("Logged Out")
         navigate("/")
     }

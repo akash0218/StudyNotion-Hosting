@@ -3,8 +3,8 @@ import { ACCOUNT_TYPE } from '../../../utils/Constants'
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import Tab from '../../Common/Tab';
 import { toast } from "react-hot-toast"
-import { setSignUpData } from "../../../slices/authSlice"
-import { useDispatch } from 'react-redux';
+import { setAccountType, setSignUpData } from "../../../slices/authSlice"
+import { useDispatch, useSelector } from 'react-redux';
 import { sendOTP } from '../../../services/operations/authAPIs';
 import { useNavigate } from 'react-router-dom';
 import PasswordCheckList from './PasswordCheckList';
@@ -13,7 +13,8 @@ const SignUpForm = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
+    const {accountType} = useSelector((state) => state.auth)
+
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -70,7 +71,7 @@ const SignUpForm = () => {
             password: "",
             confirmPassword: "",
         })
-        setAccountType(ACCOUNT_TYPE.STUDENT)
+        dispatch(setAccountType("Student"))
 
     }
 
@@ -78,7 +79,7 @@ const SignUpForm = () => {
         <div>
             
             {/* tab */}
-            <Tab tabData={tabData} field={accountType} setField={setAccountType}/>
+            <Tab tabData={tabData} field={accountType}/>
 
             {/* form */}
             <form onSubmit={submitHandler} className="flex w-[444px] flex-col gap-y-4">

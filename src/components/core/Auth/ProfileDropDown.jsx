@@ -8,10 +8,11 @@ import { VscDashboard, VscSignOut } from "react-icons/vsc"
 import { Toast, toast } from 'react-hot-toast';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import { logout } from '../../../services/operations/authAPIs';
+import { setTab } from '../../../slices/authSlice';
 
 
 
-const ProfileDropDown = () => {
+const ProfileDropDown = ({setCurrentTab}) => {
 
     const {user} = useSelector((state) => state.profile);
     const dispatch = useDispatch();
@@ -39,7 +40,10 @@ const ProfileDropDown = () => {
                     <div className={`${open ? "absolute left-[40%] top-[5px] h-4 w-4 rotate-45 rounded bg-richblack-800 border-[1px] border-richblack-700 translate-y-[-45%] translate-x-[92%] z-[1010]" : ""}`}/>
                     <div className="absolute top-[5px] -left-[55px] divide-y-[1px] divide-richblack-700 overflow-hidden rounded-md border-[1px] border-richblack-700 bg-richblack-800 z-[1040]"
                     onClick={(e) => e.stopPropagation()} ref={ref}>
-                        <Link to="/dashboard/my-profile" onClick={() => setOpen(false)}>
+                        <Link to="/dashboard/my-profile" onClick={() => {
+                            setOpen(false)
+                            dispatch(setTab(""))
+                        }}>
                             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
                                 <VscDashboard className="text-lg" />
                                 Dashboard

@@ -8,22 +8,19 @@ import {AiOutlineShoppingCart} from "react-icons/ai"
 import { ACCOUNT_TYPE } from '../../utils/Constants'
 import ProfileDropDown from '../core/Auth/ProfileDropDown'
 import { useEffect } from 'react'
-import { apiConnector } from '../../services/apiconnecter'
-import { categories } from '../../services/apis'
 import { BsChevronDown } from "react-icons/bs"
 import useOnClickOutside from '../../hooks/useOnClickOutside'
 import { useRef } from 'react'
-import { FiShoppingCart } from "react-icons/fi";
 import { getAllCategories } from '../../services/operations/courseAPIs'
-import { removeFromCart, resetCart } from '../../slices/cartSlice'
+import { setAccountType, setTab } from '../../slices/authSlice'
 
 const NavBar = () => {
 
-    const {token} = useSelector((state) => state.auth);
+    const {token, tab} = useSelector((state) => state.auth);
     const {user} = useSelector((state) => state.profile);
     const {totalItems} = useSelector((state) => state.cart);
     const [open, setOpen] = useState(false);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const ref = useRef(null);
     // API CALL
@@ -32,11 +29,10 @@ const NavBar = () => {
     const fetchSublinks = async() => {
         try{
             const result = await getAllCategories()
-            console.log(result, "printing sublinks");
             setSubLinks(result)
         }
         catch(error){
-            console.log("Could not fetch the category list")
+            console.error("Could not fetch the category list")
         }
     }
 
@@ -58,7 +54,6 @@ const NavBar = () => {
     useOnClickOutside(ref, setOpen)
 
     const [linkHandler, setLinkHandler] = useState(false);
-    const [tab, setCurrentTab] = useState(NavbarLinks[0].title);
 
     return (
         <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700'>
@@ -67,7 +62,7 @@ const NavBar = () => {
 
                 {/* image */}
                 <Link to="/">
-                    <img src={logo} width={160} height={32} loading='lazy' onClick={()=>setCurrentTab("Home")}/>
+                    <img src={logo} width={160} height={32} loading='lazy' onClick={()=>dispatch(setTab("Home"))}/>
                 </Link>
 
                 {/* Nav links */}
@@ -80,7 +75,7 @@ const NavBar = () => {
                                     <li key={index} className='relative'>
                                         {
                                           element.title !== "Catalog" ? 
-                                            (<Link to={element.path} onClick={() => setCurrentTab(element.title)}>
+                                            (<Link to={element.path} onClick={() => dispatch(setTab(element.title))}>
                                                     <p className={`${tab === element.title ? "text-yellow-25" : "text-richblack-5"}`}>
                                                         {element.title}
                                                     </p>
@@ -109,7 +104,7 @@ const NavBar = () => {
                                                                                     <Link onClick={()=>{
                                                                                         setLinkHandler(true)
                                                                                         setOpen(false)
-                                                                                        setCurrentTab(element.title)
+                                                                                        dispatch(setTab(element.title))
                                                                                     }} to={`/catalog/${subLink.name
                                                                                                                 .split(" ")
                                                                                                                 .join("-")
@@ -145,7 +140,10 @@ const NavBar = () => {
                     {
                         token == null && 
                         <Link to={"/login"} className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
-                            <button>
+                            <button onClick={()=>{
+                                dispatch(setTab(""))
+                                dispatch(setAccountType("Student"))    
+                            }}>
                                 Log in
                             </button>
                         </Link>
@@ -154,7 +152,10 @@ const NavBar = () => {
                     {
                         token == null && 
                         <Link to={"/signup"} className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
-                            <button>
+                            <button onClick={()=>{
+                                dispatch(setTab(""))
+                                dispatch(setAccountType("Student"))    
+                            }}>
                                 Sign up
                             </button>
                         </Link>
@@ -163,7 +164,7 @@ const NavBar = () => {
                     {
                         token != null &&
                         <div className='flex gap-2'>
-                            <div>
+                            <div onClick={()=>dispatch(setTab(""))}>
                                 {
                                     user && user?.accountType != ACCOUNT_TYPE.INSTRUCTOR && (
                                         <Link to="/dashboard/cart" className='absolute -left-10'>

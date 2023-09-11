@@ -1,14 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import IconBtn from '../../Common/IconBtn';
 import { BiEdit } from "react-icons/bi";
+import { useState } from 'react';
+import { setLoading } from '../../../slices/authSlice';
 
 const MyProfile = () => {
 
     const {user} = useSelector((state) => state.profile);
-    console.log(user)
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     return (
         <div>
