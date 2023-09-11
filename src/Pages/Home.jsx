@@ -22,7 +22,7 @@ const Home = () => {
       text-white justify-between'>
 
             {/* become an instructor button */}
-            <Link to={"/#"}>
+            <Link to={"/login"}>
 
                 <div className='group mt-16 p-1 mx-auto bg-richblack-800 rounded-full transition-all duration-200 hover:scale-95 w-fit shadow-[inset_0px_-1px_0px_0px_#FFFFFF2E] hover:shadow-none'>
                 
