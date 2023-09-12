@@ -3,7 +3,11 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const { uploadMediaToCloudinary } = require("../config/mediaUpload");
 const {convertSecondsToDuration} = require("./secToDuration");
-const CourseProgress = require("../models/CourseProgress")
+const CourseProgress = require("../models/CourseProgress");
+const InstructorApprovals = require("../models/InstructorApprovals");
+const mailSender = require("../config/mailSender");
+const { instructorApproval } = require("../mailTemplates/instructorApproval");
+const { instructorDecline } = require("../mailTemplates/instructorDecline");
 
 // update Profile, since we are creating null values at the time of Sign up the user
 exports.updateProfile = async (req, res) => {
@@ -270,6 +274,83 @@ exports.instructorDashBoard = async(req, res) => {
         res.status(500).json({
             success: false,
             message: "Internal Server Error"
+        })
+    }
+}
+
+exports.getInstructorApprovalRequests = async(req, res) => {
+    try{
+        // db call
+        const requests = await InstructorApprovals.find({}).populate("additionalDetails");
+        // return response
+        return res.status(200).json({
+            success: true,
+            message: "Instructor Requests Fetched Successfully",
+            data: requests,
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: true,
+            message: "Error in fetching Data",
+        })
+    }
+}
+
+exports.declineInstructorApprovalRequests = async(req, res) => {
+    try{
+        const {emailId, name} = req.body;
+
+        console.log()
+
+        await InstructorApprovals.findOneAndDelete({emailID: emailId})
+        
+        await mailSender(emailId, `Instructor Request - Update`, instructorApproval(emailId, name))
+
+        return res.status(200).json({
+            success: true,
+            message: "Instructor Request Declined Successfully",
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: true,
+            message: "Error in Deleting the Request",
+        })
+    }
+}
+
+exports.approveInstructorApprovalRequests = async(req, res) => {
+    try{
+        const {emailId} = req.body;
+
+        const user = await InstructorApprovals.findOne({emailID: emailId})
+
+        const {firstName, lastName, emailID, password, accountType, image, additionalDetails} = user
+        
+        await User.create({
+            firstName,
+            lastName,
+            emailID,
+            password,
+            accountType,
+            image,
+            additionalDetails
+        })
+        
+        await mailSender(emailId, `Instructor Request - Update`, instructorDecline(emailId, firstName))
+
+        await InstructorApprovals.findOneAndDelete({emailID: emailId})
+
+        return res.status(200).json({
+            success: true,
+            message: "Instructor Request Accepted Successfully",
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: true,
+            message: "Error in Deleting the Request",
         })
     }
 }

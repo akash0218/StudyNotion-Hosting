@@ -1,5 +1,9 @@
 
+const mailSender = require("../config/mailSender");
+const { categoryApproval } = require("../mailTemplates/categoryApproval");
+const { categoryDecline } = require("../mailTemplates/categoryDecline");
 const Category = require("../models/Category");
+const CategoryRequests = require("../models/CategoryRequests");
 const Course = require("../models/Course");
 
 // create CategoryHandler
@@ -117,4 +121,117 @@ exports.categoryPageDetails = async (req, res) => {
         })
     }
 
+}
+
+exports.createCategoryRequest = async(req, res) => {
+    try{
+        // data fetch
+        const {name, description, firstName, lastName, emailID} = req.body;
+        // validation
+        if(!name || !description){
+            return res.status(400).json({
+                success: true,
+                message: "All fields are required",
+            })
+        }
+        const duplicate = await Category.findOne({name: name});
+        if(duplicate){
+            return res.status(500).json({
+                success: false,
+                message: "Category already created, Please add description to it"
+            })
+        }
+        // create entry in DB
+        const data = await CategoryRequests.create({
+            name, 
+            description,
+            firstName,
+            lastName,
+            emailID
+        })
+        // response
+        return res.status(200).json({
+            success: true,
+            message: "Category Created Successfully",
+            data: data
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+exports.getCategoryRequests = async(req, res) => {
+    try{
+        // db call
+        const requests = await CategoryRequests.find({});
+        // return response
+        return res.status(200).json({
+            success: true,
+            message: "Category Requests Fetched Successfully",
+            data: requests,
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: true,
+            message: "Error in fetching Data",
+        })
+    }
+}
+
+exports.declineCategoryApprovalRequest = async(req, res) => {
+    try{
+        console.log("akash in category")
+        console.log(req.body)
+        const {emailId, name, categoryName} = req.body;
+
+        await CategoryRequests.findOneAndDelete({emailID: emailId})
+        
+        await mailSender(emailId, `Category Request - Update`, categoryApproval(name, categoryName))
+
+        return res.status(200).json({
+            success: true,
+            message: "Instructor Request Declined Successfully",
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: true,
+            message: "Error in Deleting the Request",
+        })
+    }
+}
+
+exports.approveCategoryApprovalRequest = async(req, res) => {
+    try{
+        const {emailId} = req.body;
+        const category = await CategoryRequests.findOne({emailID: emailId})
+
+        const {name, description} = category
+        
+        await Category.create({
+            name, description
+        })
+
+        console.log("after")
+        
+        await mailSender(emailId, `Category Request - Update`, categoryDecline(emailId, name))
+
+        await CategoryRequests.findOneAndDelete({emailID: emailId})
+
+        return res.status(200).json({
+            success: true,
+            message: "Category Request Accepted Successfully",
+        })
+    }
+    catch(error){
+        return res.status(500).json({
+            success: true,
+            message: "Error in Deleting the Request",
+        })
+    }
 }

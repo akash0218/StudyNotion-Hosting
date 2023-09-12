@@ -3,6 +3,7 @@ require("dotenv").config();
 
 // auth
 exports.auth = async (req, res, next) => {
+    console.log("in auth")
     try{
         // fetching token
         const token = req.body.token || req.cookies.token || (req.header("Authorization") ? req.header("Authorization").replace("Bearer ", "") : false);
@@ -26,6 +27,7 @@ exports.auth = async (req, res, next) => {
                 message: "Error while verifying the token",
             })
         }
+        console.log("akash")
         next();
     }
     catch(error){
@@ -78,7 +80,7 @@ exports.isInstructor = async(req, res, next) => {
 
 // isAdmin
 exports.isAdmin = async(req, res, next) => {
-
+    console.log("in admin")
     try{
         if(req.user.role !== "Admin"){
             return res.status(401).json({
@@ -86,6 +88,7 @@ exports.isAdmin = async(req, res, next) => {
                 message: "This is a protected route for Admin"
             })
         }
+        console.log("donti")
         next();
     }
     catch(error){

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from "../../assets/Logo/Logo-Full-Light.png"
 import {NavbarLinks} from "../../data/navbar-links"
 import { useState } from 'react'
@@ -21,7 +21,7 @@ const NavBar = () => {
     const {totalItems} = useSelector((state) => state.cart);
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch()
-
+    const location = useLocation()
     const ref = useRef(null);
     // API CALL
     const [subLinks, setSubLinks] = useState([]);
@@ -135,55 +135,57 @@ const NavBar = () => {
                 </nav>
                 
                 {/* login, logout, signup, dashboard */}
-                <div className='flex gap-x-4 items-center relative'>
+                {
+                    location.pathname.split("/").pop() !== ACCOUNT_TYPE.ADMIN.toLowerCase() && location.pathname.split("/").pop() !== "approval" && 
+                    <div className='flex gap-x-4 items-center relative'>
+                        {
+                            token == null && 
+                            <Link to={"/login"} className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
+                                <button onClick={()=>{
+                                    dispatch(setTab(""))
+                                    dispatch(setAccountType("Student"))    
+                                }}>
+                                    Log in
+                                </button>
+                            </Link>
+                        }
 
-                    {
-                        token == null && 
-                        <Link to={"/login"} className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
-                            <button onClick={()=>{
-                                dispatch(setTab(""))
-                                dispatch(setAccountType("Student"))    
-                            }}>
-                                Log in
-                            </button>
-                        </Link>
-                    }
+                        {
+                            token == null && 
+                            <Link to={"/signup"} className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
+                                <button onClick={()=>{
+                                    dispatch(setTab(""))
+                                    dispatch(setAccountType("Student"))    
+                                }}>
+                                    Sign up
+                                </button>
+                            </Link>
+                        }
+                    </div>
+                }
 
-                    {
-                        token == null && 
-                        <Link to={"/signup"} className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
-                            <button onClick={()=>{
-                                dispatch(setTab(""))
-                                dispatch(setAccountType("Student"))    
-                            }}>
-                                Sign up
-                            </button>
-                        </Link>
-                    }
-
-                    {
-                        token != null &&
-                        <div className='flex gap-2'>
-                            <div onClick={()=>dispatch(setTab(""))}>
-                                {
-                                    user && user?.accountType != ACCOUNT_TYPE.INSTRUCTOR && (
-                                        <Link to="/dashboard/cart" className='absolute -left-10'>
-                                            <AiOutlineShoppingCart className='text-richblack-50 h-[30px] w-[30px]'/>
-                                            {
-                                                totalItems > 0 &&
-                                                <span className="absolute -top-[7px] -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
-                                                    {totalItems}
-                                                </span>
-                                            }
-                                        </Link>
-                                    )
-                                }
-                            </div>
-                            <ProfileDropDown/>
+                {
+                    token != null &&
+                    <div className='flex gap-2'>
+                        <div onClick={()=>dispatch(setTab(""))}>
+                            {
+                                user && user?.accountType != ACCOUNT_TYPE.INSTRUCTOR && user?.accountType != ACCOUNT_TYPE.ADMIN && (
+                                    <Link to="/dashboard/cart" className='absolute -left-10'>
+                                        <AiOutlineShoppingCart className='text-richblack-50 h-[30px] w-[30px]'/>
+                                        {
+                                            totalItems > 0 &&
+                                            <span className="absolute -top-[7px] -bottom-2 -right-2 grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                                                {totalItems}
+                                            </span>
+                                        }
+                                    </Link>
+                                )
+                            }
                         </div>
-                    }
-
-                </div>
+                        <ProfileDropDown/>
+                    </div>
+                }
+                
 
             </div>
 

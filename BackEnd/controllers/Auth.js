@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailSender = require("../config/mailSender");
 const Profile = require("../models/Profile");
+const InstructorApprovalsSchema = require("../models/InstructorApprovals")
 const {passwordUpdated} = require("../mailTemplates/passwordUpdate")
 require("dotenv").config();
 
@@ -77,7 +78,7 @@ exports.sendOTP = async (req, res) => {
 
 // signUp
 exports.signUp = async (req, res) => {
-
+    console.log("akash", "insignup")
     try{
         // data fetch from request body
         const {firstName, lastName, emailId, password, confirmPassword, accountType, otp} = req.body;
@@ -145,26 +146,39 @@ exports.signUp = async (req, res) => {
             about: null,
         })
 
-        console.log(profileDetails)
-
-        //create entry in db
-        const data = await User.create({
-            firstName,
-            lastName,
-            emailID: emailId,
-            password: securePassword,
-            accountType,
-            additionalDetails: profileDetails._id,
-            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
-        })
-
-        console.log(data.additionalDetails.about, "in signup")
-
-        return res.status(201).json({
-            success: true,
-            message: "User Created Successfully",
-            data: data,
-        })
+        if(accountType == "Instructor"){
+            const data = await InstructorApprovalsSchema.create({
+                firstName,
+                lastName,
+                emailID: emailId,
+                password: securePassword,
+                accountType,
+                additionalDetails: profileDetails._id,
+                image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+            })
+            return res.status(201).json({
+                success: true,
+                message: "Instructor Created Successfully, awaiting approval!!",
+                data: data,
+            })
+        }
+        else{
+            //create entry in db
+            const data = await User.create({
+                firstName,
+                lastName,
+                emailID: emailId,
+                password: securePassword,
+                accountType,
+                additionalDetails: profileDetails._id,
+                image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+            })
+            return res.status(201).json({
+                success: true,
+                message: "User Created Successfully",
+                data: data,
+            })
+        }
     }
     catch(error){
         console.log(error);
@@ -295,6 +309,81 @@ exports.changePassword = async (req, res) => {
         return res.status(500).json({
             sucess: false,
             message: "Error in changing password"
+        })
+    }
+
+}
+
+
+exports.adminSignIn = async (req, res) => {
+
+    try{
+        // fetch data from body
+        const {emailId, password} = req.body;
+        // validate data
+        if(!emailId || !password){
+            return res.status(500).json({
+                success: false,
+                message: "Please enter all the detals",
+            })
+        }
+        // check whether user exists in db
+        const user = await User.findOne({emailID: emailId}).populate("additionalDetails");
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: "User is not an Admin",
+            })
+        }
+        if(user.accountType !== "Admin"){
+            return  res.status(401).json({
+                success: false,
+                message: "User is not an Admin, please use Student/Instructor route for login",
+            })
+        }
+        // unhash and validate password
+        if(await bcrypt.compare(password, user.password)){
+            // create jwt token
+            const payload = {
+                emailID: user.emailID,
+                id: user._id,
+                role: user.accountType,
+            }
+
+            const token = await jwt.sign(payload, process.env.JWT_SECRET, {
+                expiresIn: "24hrs",
+            })
+
+            // create cookie
+            // adding user to cookie and hiding password
+            user.token = token;
+            user.password = undefined;
+            
+            const options = {
+                expiresIn: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                httpOnly: true,
+            }
+
+            res.cookie("token", token, options).status(200).json({
+                success: true,
+                message: "Logged In Successfully",
+                token,
+                user
+            })
+
+        }
+        else{
+            return  res.status(401).json({
+                success: false,
+                message: "Passwords donot match!!",
+            })
+        }
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: error.message,
         })
     }
 

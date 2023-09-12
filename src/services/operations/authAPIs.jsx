@@ -47,15 +47,20 @@ export function signUp(firstName, lastName, emailId, password, confirmPassword, 
                 throw new Error(response.data.message)
             }
 
-            toast.success("SignUp Successfull");
-            navigate("/login");
+            if(accountType == "Instructor"){
+                toast.success("Account Created Successfully, Awaiting Approval from the admin")
+                navigate("/signup/approval")
+            }
+            else{
+                toast.success("SignUp Successfull");
+                navigate("/login");
+            }
         }
         catch(error){
             const {message} = error.response.data;
             toast.error(message)
             navigate("/verify-email")
         }
-
         dispatch(setLoading(false));
     }
 }
@@ -163,5 +168,43 @@ export function logout(navigate){
         toast.dismiss(toastId);
         toast.success("Logged Out")
         navigate("/")
+    }
+}
+
+export function adminSignIn(emailId, password, navigate) {
+    const SIGNIN_API = authEndPoints.ADMIN_SIGNIN_API;
+
+    return async(dispatch) => {
+        const toastId = toast.loading("Loading..!!")
+        dispatch(setLoading(true));
+
+        try{
+            console.log("akash")
+            const response = await apiConnector("POST", SIGNIN_API, {emailId, password})
+            console.log("SIGN IN response successful", response);
+
+            if (!response.data.success) {
+                throw new Error(response.data.message)
+            }
+
+            const {token} = response.data;
+            dispatch(setToken(token));
+            const userImage = response.data?.user?.image
+                ? response.data.user.image : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
+
+            dispatch(setUser({ ...response.data.user, image: userImage }))
+            localStorage.setItem("user", JSON.stringify(response.data.user))
+            localStorage.setItem("token", JSON.stringify(response.data.token))
+            navigate("/dashboard/my-profile")
+        }
+        catch(error){
+            const {message} = error.response.data;
+            toast.error(message)
+            toast.dismiss(toastId);
+            navigate("/login/admin")
+            return
+        }
+        dispatch(setLoading(false));
+        toast.dismiss(toastId)
     }
 }

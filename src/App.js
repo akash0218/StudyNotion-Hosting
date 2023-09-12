@@ -26,6 +26,12 @@ import CourseDetails from "./Pages/CourseDetails";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import ViewCourse from "./Pages/ViewCourse";
 import Instructor from "./components/core/Dashboard/InstructorDashBoard/Instructor";
+import Admin from "./components/core/AdminPage/Admin";
+import InstructorApprovals from "./components/core/AdminPage/InstructorApprovals";
+import Approval from "./Pages/Approval";
+import AddCategory from "./components/core/AdminPage/AddCategory";
+import CategoryApprovals from "./components/core/AdminPage/CategoryApprovals";
+import RequestCategory from "./components/core/Dashboard/RequestCategory";
 
 function App() {
 
@@ -36,9 +42,11 @@ function App() {
       <NavBar/>
 
       <Routes>
+          <Route path="/login/admin" element={<Admin/>}/>
           <Route path="/" element={<Home/>}/>
           <Route path="/about" element={<Aboutus/>} />
           <Route path="/signup" element={<SignUp/>} />
+          <Route path="/signup/approval" element={<Approval/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/verify-email" element={<VerifyEmail/>}/>
           <Route path="/forgot-password" element={<ForgotPassword/>} />
@@ -70,10 +78,20 @@ function App() {
                 <Route path="/dashboard/instructor" element={<Instructor/>}/>
                 <Route path="/dashboard/my-courses" element={<MyCourses/>}/>
                 <Route path="/dashboard/add-course" element={<AddCourse/>}/>
+                <Route path="/dashboard/add-category" element={<RequestCategory/>}/>
+                <Route path="/dashboard/request-category/pendingApproval" element={<Approval request={true}/>}/>
                 <Route
                   path="dashboard/edit-course/:courseId"
                   element={<EditCourse />}
                 />
+              </>
+            )}
+            {
+              user?.accountType === ACCOUNT_TYPE.ADMIN && (
+              <>
+                <Route path="/dashboard/admin/instructorApprovals" element={<InstructorApprovals/>}/>
+                <Route path="/dashboard/admin/addCategory" element={<AddCategory/>}/>
+                <Route path="/dashboard/admin/categoryApprovals" element={<CategoryApprovals/>}/>
               </>
             )}
           </Route>

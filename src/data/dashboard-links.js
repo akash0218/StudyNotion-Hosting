@@ -43,5 +43,33 @@ export const sidebarLinks = [
     type: ACCOUNT_TYPE.STUDENT,
     icon: "FiShoppingCart",
   },
+  {
+    id: 7,
+    name: "Instructor Approvals",
+    path: "/dashboard/admin/instructorApprovals",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "FcApproval",
+  },
+  {
+    id: 8,
+    name: "Category Approvals",
+    path: "/dashboard/admin/categoryApprovals",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "FcApproval",
+  },
+  {
+    id: 9,
+    name: "Add Category",
+    path: "/dashboard/admin/addCategory",
+    type: ACCOUNT_TYPE.ADMIN,
+    icon: "VscAdd"
+  },
+  {
+    id: 10,
+    name: "Request Category",
+    path: "/dashboard/add-category",
+    type: ACCOUNT_TYPE.INSTRUCTOR,
+    icon: "VscAdd",
+  },
   
 ];

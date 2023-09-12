@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 // category Controllers
-const {createCategory, showAllCategories, categoryPageDetails} = require("../controllers/Category")
+const {createCategory, showAllCategories, categoryPageDetails, createCategoryRequest, getCategoryRequests, declineCategoryApprovalRequest, approveCategoryApprovalRequest} = require("../controllers/Category")
 // course controllers
 const {createCourse, showAllCourses, getCourseDetails, editCourse, getInstuctorCourseDetails, deleteCourse, courseBought} = require("../controllers/Course");
 
@@ -59,7 +59,10 @@ router.post("/createCategory", auth, isAdmin, createCategory);
 router.get("/getAllCategories", showAllCategories);
 // CategoryPageDetails
 router.post("/getcategoryPageDetails", categoryPageDetails);
-
+router.post("/createCategoryRequest", auth, isInstructor, createCategoryRequest)
+router.post("/getCategoryRequest", auth, isAdmin, getCategoryRequests)
+router.delete("/declineCategoryApprovalRequest", auth, isAdmin, declineCategoryApprovalRequest)
+router.post("/approveCategoryApprovalRequest", auth, isAdmin, approveCategoryApprovalRequest)
                 
 
 /// ratings And Reviews

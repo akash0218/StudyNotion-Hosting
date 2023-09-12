@@ -7,7 +7,8 @@ export const authEndPoints = {
     RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
     RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
     SIGNUP_API: BASE_URL + "/auth/signUp",
-    SIGNIN_API: BASE_URL + "/auth/signIn"
+    SIGNIN_API: BASE_URL + "/auth/signIn",
+    ADMIN_SIGNIN_API: BASE_URL + "/auth/adminSignIn"
 }
 
 // CONTACT-US API
@@ -18,7 +19,12 @@ export const contactusEndpoint = {
 // categories end-points
 export const categories = {
     CATEGORIES_API: BASE_URL + "/course/showAllCategories",
-    GET_CATEGORY_PAGE_DETAILS_API: BASE_URL + "/course/getcategoryPageDetails"
+    GET_CATEGORY_PAGE_DETAILS_API: BASE_URL + "/course/getcategoryPageDetails",
+    CREATE_CATEGORY_API: BASE_URL + "/course/createCategory",
+    CREATE_CATEGORY_REQUEST_API: BASE_URL + "/course/createCategoryRequest",
+    GET_CATEGORY_REQUEST_API: BASE_URL + "/course/getCategoryRequest",
+    DECLINE_CATEGORY_APPROVAL_REQUESTS_API: BASE_URL + "/course/declineCategoryApprovalRequest",
+    APPROVE_CATEGORY_APPROVAL_REQUESTS_API: BASE_URL + "/course/approveCategoryApprovalRequest"
 };
 
 //settings end-points
@@ -34,7 +40,10 @@ export const settings = {
 //profile end points
 export const profileEndPoints = {
     GET_PROFILE_ENROLLED_COURSES_API: BASE_URL + "/profile/getEnrolledCourses",
-    GET_INSTRUCTOR_DASHBOARD_API: BASE_URL + "/profile/instructorDashBoard"
+    GET_INSTRUCTOR_DASHBOARD_API: BASE_URL + "/profile/instructorDashBoard",
+    GET_INSTRUCTOR_APPROVAL_REQUESTS_API: BASE_URL + "/profile/getInstructorApprovalRequests",
+    DECLINE_INSTRUCTOR_APPROVAL_REQUESTS_API: BASE_URL + "/profile/declineInstructorApprovalRequest",
+    APPROVE_INSTRUCTOR_APPROVAL_REQUESTS_API: BASE_URL + "/profile/approveInstructorApprovalRequest"
 }
 
 // course end points
@@ -55,7 +64,7 @@ export const courseEndpoints = {
     GET_COURSE_PROGRESS_API: BASE_URL + "/course/getCourseProgress",
     CREATE_RATING_API: BASE_URL + "/course/createRating",
     UPDATE_COMPLETED_LECTURE_API: BASE_URL + "/course/markLectureAsComplete",
-    GET_ALL_RATINGS_API: BASE_URL + "/course/getAllRatings"
+    GET_ALL_RATINGS_API: BASE_URL + "/course/getAllRatings",
 }
 
 // payment end points

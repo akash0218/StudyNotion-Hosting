@@ -59,7 +59,6 @@ export async function getAllCategories(){
         console.error(error);
     }
     toast.dismiss(toastId);
-    console.log(result, "in categoreis result")
     return result;
 }
 
@@ -335,6 +334,8 @@ export async function getRatingsAndReviews(){
     }
     return result
 }
+
+
 
 
 

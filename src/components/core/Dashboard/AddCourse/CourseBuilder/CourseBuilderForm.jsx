@@ -27,7 +27,6 @@ const CourseBuilderForm = () => {
     const {token} = useSelector((state) => state.auth);
 
     const handleEditSectionName = async (sectionName, sectionId) => {
-      console.log(sectionName, sectionId)
       if(sectionName == editsectionName) {
         setEditSectionName(null);
         setValue("sectionName", "")

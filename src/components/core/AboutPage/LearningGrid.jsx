@@ -11,7 +11,7 @@ const LearningGridArray = [
       description:
         "Studynotion partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations worldwide.",
       BtnText: "Learn More",
-      BtnLink: "/",
+      BtnLink: "/login",
     },
     {
       order: 1,

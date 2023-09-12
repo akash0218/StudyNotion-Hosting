@@ -2,10 +2,16 @@ import React from 'react'
 import * as Icons from "react-icons/vsc"
 import * as Icons1 from "react-icons/fi"
 import { NavLink, matchPath, useLocation } from 'react-router-dom';
-import { ACCOUNT_TYPE } from '../../../utils/Constants';
+import * as Icons2 from "react-icons/fc";
 
 const SideBarLink = ({link, iconName}) => {
-    const Icon = link.name != "Cart" ? Icons[iconName] : Icons1[iconName];
+    let Icon;
+    if(link.name === "Instructor Approvals" || link.name === "Category Approvals"){
+        Icon = Icons2[iconName]
+    }
+    else{
+        Icon = link.name != "Cart" ? Icons[iconName] : Icons1[iconName];
+    }
     const location = useLocation();
 
     const matchRoute = (route) => {

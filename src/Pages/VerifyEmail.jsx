@@ -30,9 +30,6 @@ const VerifyEmail = () => {
                 confirmPassword, 
                 accountType, 
         } = signUpData;
-
-        console.log(firstName, lastName, emailId, password, confirmPassword, accountType)
-
         dispatch(signUp(firstName, lastName, emailId, password, confirmPassword, accountType, otp, navigate));
     }
 

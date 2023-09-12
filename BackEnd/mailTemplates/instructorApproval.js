@@ -1,17 +1,10 @@
-exports.contactUsEmail = (
-    email,
-    firstName,
-    lastName,
-    message,
-    phoneNo,
-    countrycode
-  ) => {
-    return `<!DOCTYPE html>
+exports.instructorApproval = (email, name) => {
+	return `<!DOCTYPE html>
     <html>
     
     <head>
         <meta charset="UTF-8">
-        <title>Contact Form Confirmation</title>
+        <title>Password Update Confirmation</title>
         <style>
             body {
                 background-color: #ffffff;
@@ -47,18 +40,6 @@ exports.contactUsEmail = (
                 margin-bottom: 20px;
             }
     
-            .cta {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #FFD60A;
-                color: #000000;
-                text-decoration: none;
-                border-radius: 5px;
-                font-size: 16px;
-                font-weight: bold;
-                margin-top: 20px;
-            }
-    
             .support {
                 font-size: 14px;
                 color: #999999;
@@ -76,23 +57,19 @@ exports.contactUsEmail = (
         <div class="container">
             <a href="https://studynotionprod.vercel.app/"><img class="logo"
                     src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
-            <div class="message">Contact Form Confirmation</div>
+            <div class="message">Instructor Request Declined</div>
             <div class="body">
-                <p>Dear ${firstName} ${lastName},</p>
-                <p>Thank you for contacting us. We have received your message and will respond to you as soon as possible.
+                <p>Hey ${name},</p>
+                <p>Your Request for Instructor Account <span class="highlight">${email}</span> was declined.
                 </p>
-                <p>Here are the details you provided:</p>
-                <p>Name: ${firstName} ${lastName}</p>
-                <p>Email: ${email}</p>
-                <p>Phone Number: ${phoneNo}</p>
-                <p>Message: ${message}</p>
-                <p>We appreciate your interest and will get back to you shortly. </p>
+                <p>If you want to know the reason, please contact the admin.</p>
             </div>
-            <div class="support">If you have any further questions or need immediate assistance, please feel free to reach
-                out to us at <a href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!</div>
+            <div class="support">If you have any questions or need further assistance, please feel free to reach out to us
+                at
+                <a href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!
+            </div>
         </div>
     </body>
     
-    </html>`
-  }
-  
+    </html>`;
+};

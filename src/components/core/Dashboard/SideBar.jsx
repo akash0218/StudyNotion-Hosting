@@ -45,6 +45,15 @@ const SideBar = () => {
                                     </div>
                                 )
                             }
+                            if(link.name == "My Profile" && user.accountType === "Admin"){
+                                return (
+                                    <div className='flex flex-col'>
+                                        <SideBarLink link={link} iconName={link.icon} key={link.id}/>
+                                        <div className='mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-600'/>
+                                        <p className='text-richblack-50 ml-8'>ADMIN</p>
+                                    </div>
+                                )
+                            }
                             return (
                                 <SideBarLink link={link} iconName={link.icon} key={link.id}/>
                             )
