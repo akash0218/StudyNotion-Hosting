@@ -25,11 +25,6 @@ const NavBar = () => {
     const ref = useRef(null);
     // API CALL
     const [subLinks, setSubLinks] = useState([]);
-
-    console.log(user)
-    console.log(token)
-    console.log(totalItems)
-
     const fetchSublinks = async() => {
         try{
             const result = await getAllCategories()

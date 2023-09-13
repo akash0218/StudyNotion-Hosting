@@ -40,7 +40,6 @@ exports.capturePayment = async(req, res) => {
                     message: "Student is already Enrolled in this course!!"
                 })
             }
-
             totalAmount += course.price;
         }
         catch(error){
@@ -50,15 +49,14 @@ exports.capturePayment = async(req, res) => {
                 message: error.message
             });
         }
-
-        // before creating the razorpay instance, we have to give an argument options
+    }
+    // before creating the razorpay instance, we have to give an argument options
         // creating options.
         const options = {
             amount: totalAmount * 100,
             currency: "INR",
             receipt: Math.random(Date.now()).toString()
         }
-
         // creating order
         try{
             const paymentResponse = await instance.orders.create(options);
@@ -74,7 +72,6 @@ exports.capturePayment = async(req, res) => {
                 message: "Could not Initaite the Order"
             })
         }
-    }
 
 }
 
@@ -86,7 +83,6 @@ const enrollStudents = async(courses, user, res) => {
         })
     }
 
-    console.log("akash")
     for (const courseId of courses){
         
         try{
@@ -150,9 +146,6 @@ exports.verifyPayment = async(req, res) => {
     // we call the final output that we got from hashing as "digest" -- hexadecimal format
     // converting hmac object to string format
     const expectedSignature = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET).update(body.toString()).digest("hex")
-
-    console.log(expectedSignature)
-
     if(expectedSignature == razorpay_signature) {
         // payment sucess
         // enroll student

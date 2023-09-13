@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactStars from "react-rating-stars-component"
-import { BiStar, BiSolidStarHalf, BiSolidStar } from "react-icons/bi"
-import { FiTrash2 } from "react-icons/fi"
 import {removeFromCart} from "../../../../slices/cartSlice"
-import { useEffect } from 'react'
 import getAvgRating from '../../../../utils/getAvgRating'
 import RatingStars from '../../../Common/RatingStars'
 import { RiDeleteBin6Line } from "react-icons/ri"
@@ -12,7 +8,6 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 const RenderCartCourses = () => {
 
     const {cart} = useSelector((state) => state.cart)
-    const [avgRating, setAvgRating] = useState(null)
     const dispatch = useDispatch();
 
     const getAvgRatings = (ratingsAndReviews) => {
@@ -20,7 +15,6 @@ const RenderCartCourses = () => {
         return rating;
     }
 
-    console.log(cart)
     return (
         <div className="flex flex-1 flex-col">
             {
