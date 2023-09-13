@@ -26,6 +26,10 @@ const NavBar = () => {
     // API CALL
     const [subLinks, setSubLinks] = useState([]);
 
+    console.log(user)
+    console.log(token)
+    console.log(totalItems)
+
     const fetchSublinks = async() => {
         try{
             const result = await getAllCategories()
@@ -166,7 +170,7 @@ const NavBar = () => {
 
                 {
                     token != null &&
-                    <div className='flex gap-2'>
+                    <div className='flex gap-2 relative'>
                         <div onClick={()=>dispatch(setTab(""))}>
                             {
                                 user && user?.accountType != ACCOUNT_TYPE.INSTRUCTOR && user?.accountType != ACCOUNT_TYPE.ADMIN && (
