@@ -67,7 +67,7 @@ const CourseDetailsCard = ({course, handleAddToCart, handleBuyCourse, cartFlag, 
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
                             {
-                                course?.instructions?.map((item, index) => {
+                                course?.instructions[0]?.split(",").map((item, index) => {
                                     return (
                                         <p className='flex gap-2' key={index}>
                                             <BsFillCaretRightFill/>
