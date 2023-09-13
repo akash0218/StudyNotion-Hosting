@@ -36,11 +36,8 @@ const ReviewSlider = () => {
                     loop={true}
                     freeMode={true}
                     autoplay={{
-                        delay: 1200,
+                        delay: 5000,
                         disableOnInteraction: false,
-                    }}
-                    pagination={{
-                        clickable: true
                     }}
                     modules={[Pagination, Autoplay]}
                     className="w-full mySwiper"
