@@ -1,6 +1,6 @@
 import React from 'react'
 import { toast } from 'react-hot-toast';
-import { apiConnector } from '../apiconnecter';
+import { apiConnector } from '../apiconnector';
 import { categories } from '../apis';
 
 const {GET_CATEGORY_PAGE_DETAILS_API, CREATE_CATEGORY_API, CREATE_CATEGORY_REQUEST_API, GET_CATEGORY_REQUEST_API,

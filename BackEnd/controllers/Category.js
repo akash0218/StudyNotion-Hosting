@@ -49,7 +49,7 @@ exports.createCategory = async (req, res) => {
 
 // getAll Categories 
 exports.showAllCategories = async (req, res) => {
-
+    console.log("akash in show allCategories")
     try{
         // show all data
         const allCategories = await Category.find({}, {name: true, description: true})

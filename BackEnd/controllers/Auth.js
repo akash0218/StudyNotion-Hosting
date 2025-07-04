@@ -78,7 +78,6 @@ exports.sendOTP = async (req, res) => {
 
 // signUp
 exports.signUp = async (req, res) => {
-    console.log("akash", "insignup")
     try{
         // data fetch from request body
         const {firstName, lastName, emailId, password, confirmPassword, accountType, otp} = req.body;

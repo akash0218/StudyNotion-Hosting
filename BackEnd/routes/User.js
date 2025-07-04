@@ -6,7 +6,7 @@ const router = express.Router();
 const {sendOTP, signUp, signIn, changePassword, adminSignIn} = require("../controllers/Auth");
 
 // importing middlewares
-const {auth, isAdmin} = require("../middlewares/Auth");
+const {auth} = require("../middlewares/Auth");
 const { resetPasswordToken, resetPassword } = require("../controllers/resetPassword");
 
 // sendOTP, signUp, signIn, changePassword

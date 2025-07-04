@@ -1,4 +1,4 @@
-import { apiConnector } from "../apiconnecter";
+import { apiConnector } from "../apiconnector";
 import { courseEndpoints } from "../apis";
 import { toast } from "react-hot-toast";
 

@@ -1,4 +1,4 @@
-import { apiConnector } from "../apiconnecter"
+import { apiConnector } from "../apiconnector"
 import { settings } from "../apis"
 import { toast } from "react-hot-toast"
 import { setUser } from "../../slices/profileSlice"

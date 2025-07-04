@@ -1,4 +1,4 @@
-import { apiConnector } from "../apiconnecter";
+import { apiConnector } from "../apiconnector";
 import { profileEndPoints } from "../apis"
 import { toast } from "react-hot-toast";
 
@@ -58,7 +58,6 @@ export async function getInstructorApprovalRequests(token){
         const response = await apiConnector("POST", GET_INSTRUCTOR_APPROVAL_REQUESTS_API, null, {
             Authorization: `Bearer ${token}`,
         })
-        console.log("akash, in get")
         if (!response.data.success) {
             throw new Error(response.data.message)
         }

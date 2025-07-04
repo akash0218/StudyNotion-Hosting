@@ -10,6 +10,7 @@ const crypto = require("crypto");
 // initiate the razorpay order
 exports.capturePayment = async(req, res) => {
     const {courses} = req.body;
+    console.log(courses);
     const userId = req.user.id;
 
     if(courses.length === 0) {

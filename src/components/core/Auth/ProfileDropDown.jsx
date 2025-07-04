@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from "react-router-dom"
 import { VscDashboard, VscSignOut } from "react-icons/vsc"
-import { Toast, toast } from 'react-hot-toast';
 import useOnClickOutside from '../../../hooks/useOnClickOutside';
 import { logout } from '../../../services/operations/authAPIs';
 import { setTab } from '../../../slices/authSlice';

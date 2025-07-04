@@ -6,7 +6,6 @@ import { FiUpload } from "react-icons/fi"
 import { uploadProfilePicture } from '../../../../services/operations/settingsAPIs';
 import { useEffect } from 'react';
 import { removeProfilePicture } from '../../../../services/operations/settingsAPIs';
-import Modal from '../../../Common/Modal';
 import { toast } from 'react-hot-toast';
 
 const UpdateProfilePicture = ({setModal}) => {

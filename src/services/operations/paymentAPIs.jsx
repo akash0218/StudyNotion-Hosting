@@ -1,6 +1,6 @@
 import { toast } from "react-hot-toast";
 import { courseEndpoints, paymentEndPoints } from "../apis";
-import { apiConnector } from "../apiconnecter";
+import { apiConnector } from "../apiconnector";
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
 import { setPaymentLoading } from "../../slices/courseSlice";
 import { resetCart } from "../../slices/cartSlice";
@@ -75,6 +75,8 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
             toast.error("RazorPay SDK failed to load");
             return;
         }
+
+        console.log("aksh");
         // order initiate
         // done by capturePayment
         const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API, {courses}, {
