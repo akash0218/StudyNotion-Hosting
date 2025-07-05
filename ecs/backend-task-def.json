@@ -69,7 +69,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/final-backend-service",
+          "awslogs-group": "/ecs/final-backend",
           "awslogs-region": "us-east-2",
           "awslogs-stream-prefix": "ecs"
         }
