@@ -68,6 +68,14 @@
       ]
     }
   ],
+  "logConfiguration": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "/ecs/final-backend-service",
+      "awslogs-region": "us-east-2",
+      "awslogs-stream-prefix": "ecs"
+    }
+  },
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
   "memory": "512",
