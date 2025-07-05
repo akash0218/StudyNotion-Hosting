@@ -2,7 +2,8 @@ name: Deploy Frontend
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'src/**'
       - 'public/**'
@@ -14,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -33,10 +34,14 @@ jobs:
           docker tag ${{ secrets.FRONTEND_ECR_URI }}:latest ${{ secrets.FRONTEND_ECR_URI }}:latest
           docker push ${{ secrets.FRONTEND_ECR_URI }}:latest
 
+      - name: Replace image URI in task definition
+        run: |
+          sed -i 's|__FRONTEND_ECR_URI__|${{ secrets.FRONTEND_ECR_URI }}|g' ecs/frontend-task-def.json
+
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ecs/frontend-task-def.json
-          service: frontend-service
+          service: final-frontend-service
           cluster: final-project-cluster
           wait-for-service-stability: true

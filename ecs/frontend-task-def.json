@@ -4,7 +4,7 @@
   "containerDefinitions": [
     {
       "name": "final-frontend",
-      "image": "${FRONTEND_ECR_URI}:latest",
+      "image": "__FRONTEND_ECR_URI__:latest",
       "essential": true,
       "portMappings": [
         {

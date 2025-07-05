@@ -2,7 +2,8 @@ name: Deploy Backend
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'BackEnd/**'
       - 'ecs/backend-task-def.json'
@@ -11,9 +12,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Configure AWS credentials
@@ -28,14 +28,19 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.BACKEND_ECR_URI }} ./BackEnd
+          cd BackEnd
+          docker build -t ${{ secrets.BACKEND_ECR_URI }} .
           docker tag ${{ secrets.BACKEND_ECR_URI }}:latest ${{ secrets.BACKEND_ECR_URI }}:latest
           docker push ${{ secrets.BACKEND_ECR_URI }}:latest
+
+      - name: Replace image URI in task definition
+        run: |
+          sed -i 's|__BACKEND_ECR_URI__|${{ secrets.BACKEND_ECR_URI }}|g' ecs/backend-task-def.json
 
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ecs/backend-task-def.json
-          service: backend-service
+          service: final-backend-service
           cluster: final-project-cluster
           wait-for-service-stability: true
