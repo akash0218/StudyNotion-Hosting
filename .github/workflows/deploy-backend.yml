@@ -44,3 +44,9 @@ jobs:
           service: final-backend-service
           cluster: final-project-cluster
           wait-for-service-stability: true
+          wait-for-minutes: 10
+      
+      - name: Describe ECS service
+        run: |
+          aws ecs describe-services --cluster final-project-cluster --services final-backend-service --region us-east-2
+          echo "Deployment completed successfully."

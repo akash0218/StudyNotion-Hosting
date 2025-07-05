@@ -15,7 +15,55 @@
       "environment": [
         {
           "name": "NODE_ENV",
-          "value": "production"
+          "value": "development"
+        },
+        {
+          "name": "MAIL_HOST",
+          "value": "smtp.gmail.com"
+        },
+        {
+          "name": "MAIL_USER",
+          "value": "karuturiakash2000@gmail.com"
+        },
+        {
+          "name": "MAIL_PASS",
+          "value": "wpiu whgn ywgj nnjt"
+        },
+        {
+          "name": "JWT_SECRET",
+          "value": "akash"
+        },
+        {
+          "name": "RAZORPAY_KEY",
+          "value": "rzp_test_It0xhFkiyjMRhv"
+        },
+        {
+          "name": "RAZORPAY_SECRET",
+          "value": "INui36NHLQVMLRtHZheyNxoW"
+        },
+        {
+          "name": "MONGODB_URL",
+          "value": "mongodb+srv://AkashKaruturi:4TYZ85Kc8ZpINa0v@cluster0.3qyfftt.mongodb.net/"
+        },
+        {
+          "name": "PORT",
+          "value": "4000"
+        },
+        {
+          "name": "CLOUD_NAME",
+          "value": "dlknhsj5t"
+        },
+        {
+          "name": "API_KEY",
+          "value": "971748848877496"
+        },
+        {
+          "name": "API_SECRET",
+          "value": "_EbfRFz2M43K6tajw1bbjGyml-c"
+        },
+        {
+          "name": "FOLDER_NAME",
+          "value": "finalProjectResources"
         }
       ]
     }
