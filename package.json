@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI= false react-scripts build",
+    "build": "CI=false react-scripts build",
     "eject": "react-scripts eject",
     "server": "cd BackEnd && npm run dev",
     "dev": "concurrently -n \"client,server\" -c \"bgBlue,bgYellow\" \"npm start\" \"npm run server\""
