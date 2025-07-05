@@ -16,6 +16,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const fileUpload = require("express-fileupload");
+console.log("App is running...");
 
 const PORT = process.env.PORT || 4000;
 

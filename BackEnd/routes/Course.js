@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+console.log("Course Routes Loaded...");
 
 
 // category Controllers
