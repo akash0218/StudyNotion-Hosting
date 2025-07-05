@@ -38,7 +38,7 @@ jobs:
           sed -i 's|__BACKEND_ECR_URI__|${{ secrets.BACKEND_ECR_URI }}|g' ecs/backend-task-def.json
 
       - name: Deploy to ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v3
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ecs/backend-task-def.json
           service: final-backend-service
