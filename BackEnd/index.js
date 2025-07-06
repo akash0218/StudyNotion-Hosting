@@ -58,7 +58,7 @@ app.use("/api/v1/reach", contactRoutes);
 app.get("/", (req, res) => {
     return res.json({
         success: true,
-        message: "Your app is up and running successfully...",
+        message: "Your app is up and running successfully.....",
     })
 })
 
