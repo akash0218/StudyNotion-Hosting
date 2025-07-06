@@ -55,5 +55,5 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
-            🚀 **Preview available** at:  
-            👉 https://${{ secrets.CLOUDFRONT_DOMAIN }}/pr-${{ github.event.pull_request.number }}/
+            🚀 Preview available at:
+            👉 https://${{ secrets.PREVIEW_BASE_DOMAIN }}/pr-${{ github.event.pull_request.number }}/
