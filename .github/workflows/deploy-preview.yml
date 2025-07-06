@@ -9,11 +9,13 @@ permissions:
   contents: read
 
 jobs:
-  deploy-preview:
-    runs-on: ubuntu-latest
-
-    env:
-      AWS_REGION: us-east-2
+  jobs:
+    deploy-preview:
+      runs-on: ubuntu-latest
+      environment:
+        name: preview
+      env:
+        AWS_REGION: us-east-2
 
     steps:
       - name: Checkout code
